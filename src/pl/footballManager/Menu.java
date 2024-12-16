@@ -1,3 +1,5 @@
+package pl.footballManager;
+
 public class Menu {
     void menu() {
         System.out.println("----------  MENU  -----------");

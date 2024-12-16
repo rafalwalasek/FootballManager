@@ -1,3 +1,5 @@
+package pl.footballManager;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -8,6 +10,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         Menu menu = new Menu();
+        Player player = new Player("Rafał", "Pomocnik", 35, 85);
 
         boolean isProgramRuuning = true;
         while (isProgramRuuning) {
@@ -17,7 +20,7 @@ public class Main {
 
             try {
                 switch (scanner.nextInt()) {
-                    case 1 -> System.out.println("wybór 1");
+                    case 1 -> System.out.println(player.toString());
                     case 2 -> System.out.println("wybór 2");
                     case 3 -> isProgramRuuning = false;
                     default -> System.out.println("Błąd: podaj cyfrę z MENU!");
