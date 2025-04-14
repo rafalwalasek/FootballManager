@@ -3,7 +3,8 @@ package main;
 public class RunApp {
     public static void main(String[] args) {
 
-        System.out.println("Hello, World!");
+        FootballManager footballManager = new FootballManager();
+        footballManager.start();
 
     }
 }
