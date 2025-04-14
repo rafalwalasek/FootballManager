@@ -1,1 +1,10 @@
 Bulbasaur, Fushigidane, 38, ŚPO, 92, 97, 69, 31, Roślina
+Ivysaur, Fushigisou, 35, ŚO, 39, 72, 6, 21, Roślina
+Venusaur, Fushigibana, 33, ŚO, 87, 88, 86, 32, Roślina
+Charmander, Hitokage, 19, ŚP, 7, 55, 48, 22, Ogień
+Charmeleon, Lizardo, 29, ŚO, 77, 18, 72, 98, Ogień
+Charizard, Lizardon, 16, ŚO, 26, 23, 10, 76, Ogień
+Squirtle, Zenigame, 16, ŚO, 77, 11, 27, 11, Woda
+Wartortle, Kameil, 42, ŚO, 98, 80, 7, 82, Woda
+Blastoise, Kamex, 19, ŚP, 80, 76, 33, 14, Woda
+Caterpie, Caterpie, 30, ŚO, 60, 36, 24, 81, Robak

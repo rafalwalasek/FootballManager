@@ -41,10 +41,14 @@ public class PlayerManager {
         players.add(player);
 
         String playerToFile = player.saveToFile();
-        saveSinglePlayerToFile("players.txt", playerToFile);
+        String fileName = "players.txt";
+        saveSinglePlayerToFile(fileName, playerToFile);
     }
     private void saveSinglePlayerToFile(String fileName, String playerToFile) {
         fileManager.checkOrCreateFile(fileName);
         fileManager.appendToFile(fileName, playerToFile);
+    }
+    public void displayPlayers() {
+        fileManager.loadFromFile("players.txt");
     }
 }

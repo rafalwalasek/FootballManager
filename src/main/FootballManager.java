@@ -27,6 +27,7 @@ public class FootballManager {
                 switch (userChoice) {
                     case 0 -> exitProgram();
                     case 1 -> playerManager.addPlayer(); // Dodanie zawodnika ręcznie
+                    case 2 -> playerManager.displayPlayers();
                     default -> System.out.println("Błąd: Nieznana opcja! Wybierz ponownie.");
                 }
 
