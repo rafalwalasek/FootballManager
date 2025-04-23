@@ -1,6 +1,7 @@
 package manager;
 
 import model.Player;
+import model.Team;
 import utils.RandomGenerator;
 import utils.FileManager;
 
@@ -11,11 +12,17 @@ public class PlayerManager {
     private final ArrayList<Player> players = new ArrayList<>();
     private final RandomGenerator random = new RandomGenerator();
     private final FileManager fileManager = new FileManager();
+    private TeamManager teamManager;
 
     private final Scanner scanner;
 
     public PlayerManager(Scanner scanner) {
         this.scanner = scanner;
+    }
+
+    public void setTeamManager(TeamManager teamManager) {
+        this.teamManager = teamManager;
+        fileManager.setTeamManager(teamManager);
     }
 
     public void addPlayer() {
@@ -30,17 +37,23 @@ public class PlayerManager {
 
         System.out.print("Drużyna: ");
         String teamName = scanner.nextLine();
+        Team team = findTeamByName(teamName);
+//        Team team = null;
+//        if (!teamName.isBlank()) {
+//            team = findTeamByName(teamName);
+//            if (team == null) {
+//                System.out.println("Nie znaleziono drużyny o podanej nazwie.");
+//            }
+//        }
 
         int age = random.isValidAge();
-        int shooting = random.isValidStat();
-        int passing = random.isValidStat();
-        int speed = random.isValidStat();
-        int form = random.isValidStat();
+        double worth = random.worth();
 
-        Player player = new Player(name, surname, age, position, shooting, passing, speed, form, teamName);
+        Player player = new Player(name, surname, 0, position, team, worth);
+        player.setAge(age);
         players.add(player);
 
-        String playerToFile = player.saveToFile();
+        String playerToFile = player.savePlayerToFile();
         String fileName = "players.txt";
         saveSinglePlayerToFile(fileName, playerToFile);
     }
@@ -49,6 +62,19 @@ public class PlayerManager {
         fileManager.appendToFile(fileName, playerToFile);
     }
     public void displayPlayers() {
-        fileManager.loadFromFile("players.txt");
+        int number = 1;
+        fileManager.loadPlayersFromFile("players.txt", players);
+        for (Player player : players) {
+            System.out.print(number++ + ". ");
+            player.displayPlayer();
+        }
+    }
+    private Team findTeamByName(String teamName) {
+        for (Team team : teamManager.getTeams()) {
+            if (team.getTeamName().equalsIgnoreCase(teamName)) {
+                return team;
+            }
+        }
+        return null;
     }
 }

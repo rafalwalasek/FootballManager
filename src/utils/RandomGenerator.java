@@ -11,4 +11,10 @@ public class RandomGenerator {
     public int isValidStat() {
         return random.nextInt(1, 100);
     }
+    public double worth() {
+        return 150000 + (random.nextDouble() * 500000);
+    }
+    public double budget() {
+        return 500000 + (random.nextDouble() * 2500000);
+    }
 }

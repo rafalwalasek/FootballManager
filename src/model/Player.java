@@ -2,52 +2,39 @@ package model;
 
 public class Player extends Person {
     private final String position;
-    private final int shooting, passing, speed;
-    private final int form;
-    private final String teamName;
+    private final double worth;
+
+    private Team team;
 
     public Player(String name, String surname, int age,
-                  String position, int shooting, int passing, int speed, int form, String teamName) {
+                  String position, Team team, double worth) {
         super(name, surname, age);
         this.position = position;
-        this.shooting = shooting;
-        this.passing = passing;
-        this.speed = speed;
-        this.form = form;
-        this.teamName = teamName;
+        this.team = team;
+        this.worth = worth;
     }
 
-    public String getPosition() {
-        return position;
-    }
-    public int getShooting() {
-        return shooting;
-    }
-    public int getPassing() {
-        return passing;
-    }
-    public int getSpeed() {
-        return speed;
-    }
-    public int getForm() {
-        return form;
-    }
-    public String getTeamName() {
-        return teamName;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public void displayPlayer() {
-        super.displayPerson();
-        System.out.println("\tPozycja\t\tDrużyna\t");
-        System.out.println("\t" + position + "\t\t" + teamName + "\t");
-        System.out.println("\tStrzały\t\tPodania\t\tSzybkość\t");
-        System.out.println("\t" + shooting + "\t\t" + passing + "\t\t" + speed + "\t");
-        System.out.println("\tForma\t");
-        System.out.println("\t" + form + "\t");
+        System.out.println(super.toString() +
+                " | Pozycja: " + position +
+                " | Drużyna: " + team +
+                " | Wartość: " + formatWorth(worth));
     }
-    public String saveToFile() {
-        return getName() + ", " + getSurname() + ", " + getAge() + ", " +
-                getPosition() + ", " + getShooting() + ", " + getPassing() + ", " +
-                getSpeed() + ", " + getForm() + ", " + getTeamName();
+    private String formatWorth(double worth) {
+        if (worth >= 1000000) {
+            return String.format("%.1f mln €", worth/1000000);
+        } else if (worth >= 1000) {
+            return String.format("%.0f tys. €", worth/1000);
+        } else {
+            return String.format("%.0f €", worth);
+        }
+    }
+    public String savePlayerToFile() {
+        return getName() + "; " + getSurname() + "; " + getAge() + "; " +
+                position + "; " + team.getTeamName() + "; " + String.format("%.2f", worth);
     }
 }

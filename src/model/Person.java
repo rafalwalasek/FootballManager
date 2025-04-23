@@ -1,28 +1,38 @@
 package model;
 
-public class Person {
+public abstract class Person {
     private final String name;
     private final String surname;
-    private final int age;
+    private int age;
 
-    public Person(String name, String surname, int age) {
+    protected Person(String name, String surname, int age) {
         this.name = name;
         this.surname = surname;
         this.age = age;
     }
 
-    public String getName() {
+    protected String getName() {
         return name;
     }
-    public String getSurname() {
+
+    protected String getSurname() {
         return surname;
     }
-    public int getAge() {
+
+    protected int getAge() {
         return age;
     }
 
-    public void displayPerson() {
-        System.out.println("\tImię\t\tNazwisko\t\tWiek\t");
-        System.out.println("\t" + name + "\t\t" + surname + "\t\t" + age + "\t");
+    public void setAge(int age) {
+        if (age < 0) {
+            System.out.println("Wiek nie może być ujemny!");
+        } else {
+            this.age = age;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + surname + " | Wiek: " + age;
     }
 }
