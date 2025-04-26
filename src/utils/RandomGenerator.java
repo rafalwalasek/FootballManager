@@ -17,4 +17,7 @@ public class RandomGenerator {
     public double budget() {
         return 500000 + (random.nextDouble() * 2500000);
     }
+    public int goals() {
+        return random.nextInt(0, 5);
+    }
 }

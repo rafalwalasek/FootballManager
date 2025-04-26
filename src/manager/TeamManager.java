@@ -4,12 +4,11 @@ import model.Team;
 import utils.FileManager;
 import utils.RandomGenerator;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Set;
 
 public class TeamManager {
-    private final Set<Team> teams = new HashSet<>();
+    private final ArrayList<Team> teams = new ArrayList<>();
     private final RandomGenerator randomGenerator = new RandomGenerator();
     private final FileManager fileManager = new FileManager();
 
@@ -20,7 +19,7 @@ public class TeamManager {
         fileManager.loadTeamsFromFile("teams.txt", teams);
     }
 
-    public Set<Team> getTeams() {
+    public ArrayList<Team> getTeams() {
         return teams;
     }
 
@@ -35,7 +34,14 @@ public class TeamManager {
         int league = scanner.nextInt();
         scanner.nextLine();
 
-        Team team = new Team(name, budget, points, league);
+        System.out.print("Mecze: ");
+        int matchesPlayed = scanner.nextInt();
+        scanner.nextLine();
+
+        int goalsScored = randomGenerator.goals();
+        int goalsConceded = randomGenerator.goals();
+
+        Team team = new Team(name, budget, points, league, matchesPlayed, goalsScored, goalsConceded);
         teams.add(team);
 
         String teamToFile = team.saveTeamToFile();

@@ -4,12 +4,8 @@ import manager.TeamManager;
 import model.Player;
 import model.Team;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.Scanner;
 
 public class FileManager {
@@ -49,7 +45,7 @@ public class FileManager {
             while (reader.hasNextLine()) {
 
                 String player = reader.nextLine();
-                String[] playerData = player.split(";\\s");
+                String[] playerData = player.split(";\\s*");
 
                 String name = playerData[0];
                 String surname = playerData[1];
@@ -68,26 +64,59 @@ public class FileManager {
             e.printStackTrace();
         }
     }
-    public void loadTeamsFromFile(String fileName, Set<Team> teams) {
+    public void loadTeamsFromFile(String fileName, ArrayList<Team> teams) {
         File file = new File(fileName);
         try {
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
 
                 String team = reader.nextLine();
-                String[] teamData = team.split(";\\s");
+                String[] teamData = team.split(";\\s*");
 
                 String name = teamData[0];
                 double budget = Double.parseDouble(teamData[1].replace(",", "."));
                 int points = Integer.parseInt(teamData[2]);
-                int league = Integer.parseInt(teamData[3]);
+                int tier = Integer.parseInt(teamData[3]);
+                int matchesPlayed = Integer.parseInt(teamData[4]);
+                int goalsScored = Integer.parseInt(teamData[5]);
+                int goalsConceded = Integer.parseInt(teamData[6]);
 
-                teams.add(new Team(name, budget, points, league));
+                teams.add(new Team(name, budget, points, tier, matchesPlayed, goalsScored, goalsConceded));
 
             }
             reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+    public void updateTeamInFile(String fileName, Team updateTeam_1, Team updateTeam_2) {
+        ArrayList<Team> teams = new ArrayList<>();
+
+        loadTeamsFromFile(fileName, teams);
+        for (Team team : teams) {
+            if (team.getTeamName().equalsIgnoreCase(updateTeam_1.getTeamName())) {
+                updateTeam(team, updateTeam_1);
+            } else if (team.getTeamName().equalsIgnoreCase(updateTeam_2.getTeamName())) {
+                updateTeam(team, updateTeam_2);
+            }
+        }
+        saveTeamsToFile(fileName, teams);
+    }
+    private void updateTeam(Team team, Team updateTeam) {
+        team.setPoints(updateTeam.getPoints());
+        team.setGoalsScored(updateTeam.getGoalsScored());
+        team.setGoalsConceded(updateTeam.getGoalsConceded());
+        team.setMatchesPlayed(updateTeam.getMatchesPlayed());
+    }
+    private void saveTeamsToFile(String fileName, ArrayList<Team> teams) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Team team : teams) {
+                writer.write(team.saveTeamToFile());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the teams.");
             e.printStackTrace();
         }
     }

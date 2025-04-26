@@ -12,7 +12,7 @@ public class FootballManager {
     private final Menu menu = new Menu();
     private final PlayerManager playerManager = new PlayerManager(scanner);
     private final TeamManager teamManager = new TeamManager(scanner);
-    //private final LeagueManager leagueManager = new LeagueManager();
+    private final LeagueManager leagueManager = new LeagueManager(teamManager, scanner);
 
     private boolean shouldContinue;
 
@@ -33,8 +33,10 @@ public class FootballManager {
                     case 0 -> exitProgram();
                     case 1 -> playerManager.addPlayer(); // Dodanie zawodnika ręcznie
                     case 2 -> playerManager.displayPlayers();
-                    case 3 -> teamManager.addTeam();
+                    //case 3 -> teamManager.addTeam(); // Dodanie drużyny ręcznie
                     case 4 -> teamManager.displayTeams();
+                    case 5 -> leagueManager.displayTable();
+                    case 6 -> leagueManager.simulateMatchAndUpdateStats();
                     default -> System.out.println("Błąd: Nieznana opcja! Wybierz ponownie.");
                 }
 
